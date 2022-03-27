@@ -9,7 +9,7 @@ env:
 
 jobs:
  job-backend:
-    name: BUILD 
+    name: JOB-BUILD 
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +39,7 @@ jobs:
       run: docker push ${{ secrets.DOCKERHUB_USER }}/bc16:latest
           
  org-backend:
-    name: BUILD 
+    name: ORG-BUILD 
     runs-on: ubuntu-latest
     defaults:
       run:
