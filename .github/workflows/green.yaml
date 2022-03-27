@@ -8,7 +8,7 @@ env:
   DOCKER_PW: ${{ secrets.DOCKERHUB_PASSWD }}
 
 jobs:
- job-backend:
+  job-backend:
     name: JOB-BUILD 
     runs-on: ubuntu-latest
     defaults:
