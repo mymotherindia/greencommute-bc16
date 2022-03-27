@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: job-management-service
+        working-directory: jobsService  
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
