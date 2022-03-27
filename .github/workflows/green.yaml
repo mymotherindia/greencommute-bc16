@@ -23,6 +23,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    - name: gradle bootRun
+      run: gradle bootRun    
+
     - name: Build with gradle
       run: gradle build
 
