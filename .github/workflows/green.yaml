@@ -37,7 +37,7 @@ jobs:
      - name: Run the Gradle package task
        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
        with:
-        arguments: -b ci.gradle package
+        arguments: gradle build
 
      - name: Login to Docker Hub
        uses: docker/login-action@v1
