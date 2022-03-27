@@ -1,0 +1,157 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-bc16-frontend
+  labels:
+    app: bc-frontend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: bc-frontend
+  template:
+    metadata:
+      labels:
+        app: bc-frontend
+    spec:
+      containers:
+      - name: bc-frontend
+        image: "{{ .Values.image1.repository }}:{{ .Values.image1.tag }}"
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-db
+  labels:
+    app: db
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: "{{ .Values.image2.repository }}:{{ .Values.image2.tag }}"
+        env:
+          - name: POSTGRES_USER
+            value: {{ .Values.secert1.Postgres_user }}
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.secert1.Postgres_passwd }} 
+          - name: POSTGRES_DB
+            value: {{ .Values.secert1.Postgres_db }}
+        ports:
+          - name: http
+            containerPort: 5432
+            protocol: TCP
+       
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-bcjobs
+  labels:
+    app: jobs
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: jobs
+  template:
+    metadata:
+      labels:
+        app: jobs
+    spec:
+      containers:
+      - name: jobs
+        image: "{{ .Values.image3.repository }}:{{ .Values.image3.tag }}"
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: {{ .Values.secert2.jobs_url }}
+          - name: SPRING_DATASOURCE_USERNAME
+            value: {{ .Values.secert2.jobs_usr }} 
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: {{ .Values.secert2.jobs_passwd }}
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            value: {{ .Values.secert2.jobs_update }}
+        ports:
+          - name: http
+            containerPort: 8082
+            protocol: TCP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

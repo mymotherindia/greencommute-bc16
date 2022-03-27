@@ -1,0 +1,98 @@
+name: 'CI_CD for Helm chart on EKS'
+on:
+  push:
+    branches:
+      - master
+env:
+  DOCKER_ID: ${{ secrets.DOCKERHUB_USER }}
+  DOCKER_PW: ${{ secrets.DOCKERHUB_PASSWD }}
+
+jobs:
+ job-backend:
+    name: BUILD 
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jobsService
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: build
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASSWD }}
+    - uses: actions/checkout@v2
+    - name: build image 
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USER}}/bc16:latest
+    - name: docker push
+      run: docker push ${{ secrets.DOCKERHUB_USER }}/bc16:latest
+          
+ org-backend:
+    name: BUILD 
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: organizationService
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+      with:
+        arguments: build
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_PASSWD }}
+    - uses: actions/checkout@v2
+    - name: build image 
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USER}}/bc16:latest
+    - name: docker push
+      run: docker push ${{ secrets.DOCKERHUB_USER }}/bc16:latest
+
+
+   
+ frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: greencommute_fe
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.x
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PASSWD }}
+      - uses: actions/checkout@v2
+      - name: build image 
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USER}}/bc16:latest
+      - name: docker push
+        run: docker push ${{ secrets.DOCKERHUB_USER }}/bc16:latest    
+               

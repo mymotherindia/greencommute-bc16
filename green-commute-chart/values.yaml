@@ -1,0 +1,34 @@
+replicaCount: 1
+
+
+image1: 
+    repository: praveensanjeev/image
+    tag: BC16B
+image2:
+     repository: postgres
+     tag: latest
+image3:
+     repository: praveensanjeev/bootcamp
+     tag: jobs
+
+          
+secert1: 
+    Postgres_user: ram
+    Postgres_passwd: postgres
+    Postgres_db : postgres
+secert2: 
+    jobs_url: jdbc:postgresql://greencommute-db:5432/postgres
+    jobs_usr: ram
+    jobs_passwd : postgres
+    jobs_update: update
+ 
+
+service1:
+  type: LoadBalancer
+  port: 80
+service2:
+  type: ClusterIP
+  port: 5432
+service3:
+  type: LoadBalancer
+  port: 8082

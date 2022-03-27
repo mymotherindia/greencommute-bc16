@@ -1,0 +1,22 @@
+
+greencommute_fe/.cache/
+greencommute_fe/coverage/
+greencommute_fe/dist/*
+!greencommute_fe/dist/index.html
+greencommute_fe/node_modules/
+greencommute_fe/*.log
+
+# OS generated files
+greencommute_fe/.DS_Store
+greencommute_fe/.DS_Store?
+greencommute_fe/._*
+greencommute_fe/.Spotlight-V100
+greencommute_fe/.Trashes
+greencommute_fe/ehthumbs.db
+greencommute_fe/Thumbs.db
+greencommute_fe/.scannerwork/
+greencommute_fe/package-lock.json
+greencommute_be/.gradle/
+greencommute_be/.idea/
+greencommute_be/build/
+greencommute_be/.settings/
