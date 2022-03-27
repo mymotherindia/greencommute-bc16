@@ -16,7 +16,8 @@ greencommute_fe/ehthumbs.db
 greencommute_fe/Thumbs.db
 greencommute_fe/.scannerwork/
 greencommute_fe/package-lock.json
-greencommute_be/.gradle/
+#greencommute_be/.gradle/
 greencommute_be/.idea/
-greencommute_be/build/
+#greencommute_be/build/
 greencommute_be/.settings/
+
