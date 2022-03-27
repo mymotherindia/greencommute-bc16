@@ -20,7 +20,10 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-      
+       
+    - name: bootjar
+      run: bootJar 
+
     - name: Build with gradle
       run: gradle build
     - name: Login to Docker Hub
