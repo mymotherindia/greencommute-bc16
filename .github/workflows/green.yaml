@@ -1,3 +1,8 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Java CI
 
 on: [push]
@@ -13,8 +18,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-        run:
-         working-directory: job-management-service
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Build with Gradle
